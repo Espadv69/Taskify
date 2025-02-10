@@ -4,6 +4,9 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 
+const authRoutes = require('./routes/authRoutes')
+app.use('/api/auth', authRoutes)
+
 // Carga variable de entorno
 dotenv.config()
 
