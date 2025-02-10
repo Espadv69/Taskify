@@ -4,15 +4,12 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 
-// Authentication routes to Express app
-const authRoutes = require('./routes/authRoutes')
-app.use('/api/auth', authRoutes)
+// Inicializar con express
+const app = express()
 
 // Carga variable de entorno
 dotenv.config()
 
-// Inicializar con express
-const app = express()
 
 // Middlewares
 app.use(express.json())
@@ -33,8 +30,12 @@ app.get('/', (req, res) => {
   res.send('Taskify Backend is running 🚀')
 })
 
+// Authentication routes to Express app
+const authRoutes = require('./routes/authRoutes')
+app.use('/api/auth', authRoutes)
+
 // Inicializar servidor
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`)
+  console.log(`✅ Server running on  http://localhost:${PORT}`)
 })
