@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 
+// Authentication routes to Express app
 const authRoutes = require('./routes/authRoutes')
 app.use('/api/auth', authRoutes)
 
