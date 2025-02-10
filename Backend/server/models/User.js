@@ -31,3 +31,6 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt)
   next()
 })
+
+// Exportar el modelo
+module.exports = mongoose.model('User', UserSchema)
