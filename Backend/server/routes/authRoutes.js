@@ -9,16 +9,31 @@ const router = express.Router()
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body
 
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Please provide all fields' })
+  }
+
   try {
     // Verificar si el usuario existe
     const userExists = await User.findOne({ email })
     if (userExists)
       return res.status(400).json({ message: 'User already exists' })
 
-    // Crear nuevo usuario
-    const user = new User({ name, email, password })
-    await user.save()
+    // Encriptar contraseña
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
 
+    // Crear nuevo usuario
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+    })
+
+    // Guardar usuario en la base de datos
+    await newUser.save()
+
+    // Responder con un mensaje de éxito
     res.status(201).json({ message: 'User created successfully' })
   } catch (error) {
     res.status(500).json({ message: 'Error registering user' })
