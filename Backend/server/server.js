@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
 
+// Conectar a MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -22,3 +23,8 @@ mongoose
   })
   .then(() => console.log('✅ MongoDB connected'))
   .catch((error) => console.error('❌ MongoDB connection error:', error))
+
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.send('Taskify Backend is running 🚀')
+})
