@@ -18,10 +18,7 @@ app.use(morgan('dev'))
 
 // Conectar a MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch((error) => console.error('❌ MongoDB connection error:', error))
 
@@ -33,6 +30,7 @@ app.get('/', (req, res) => {
 // Authentication routes to Express app
 const authRoutes = require('./routes/authRoutes')
 app.use('/api/auth', authRoutes)
+console.log('✅ Authentication routes loaded')
 
 // Inicializar servidor
 const PORT = process.env.PORT || 5000
