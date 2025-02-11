@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
+const authRoutes = require('./routes/authRoutes.js')
 
 // Inicializar con express
 const app = express()
@@ -21,15 +22,14 @@ mongoose
   .then(() => console.log('✅ MongoDB connected'))
   .catch((error) => console.error('❌ MongoDB connection error:', error))
 
-// Authentication routes to Express app
-const authRoutes = require('./routes/authRoutes.js')
-app.use('/api/auth', authRoutes)
-console.log('✅ Authentication routes loaded')
-
 // Ruta de prueba
 app.get('/', (req, res) => {
   res.send('Taskify Backend is running 🚀')
 })
+
+// Authentication routes to Express app
+app.use('/api/auth', authRoutes)
+console.log('✅ Authentication routes loaded')
 
 // Inicializar servidor
 const PORT = process.env.PORT || 5000
