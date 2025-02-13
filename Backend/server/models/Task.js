@@ -5,4 +5,4 @@ const TaskSchema = new mongoose.Schema({
   description: { type: String, required: true },
 })
 
-export default mongoose.model('Task', TaskSchema)
+module.exports = mongoose.model('Task', TaskSchema)
