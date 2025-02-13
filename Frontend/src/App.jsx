@@ -42,6 +42,28 @@ const App = () => {
   useEffect(() => {
     fetchTasks()
   }, [])
+
+  return (
+    <div>
+      <h1>Task Manager</h1>
+
+      <input
+        type="text"
+        value={taskName}
+        onChange={(e) => setTaskName(e.target.value)}
+        placeholder="Task Name"
+      />
+
+      <input
+        type="text"
+        value={taskDescription}
+        onChange={(e) => settaskDescription(e.target.value)}
+        placeholder="Task Description"
+      />
+
+      <button onClick={addTask}>Add Task</button>
+    </div>
+  )
 }
 
 export default App
