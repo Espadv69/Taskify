@@ -40,6 +40,17 @@ app.post('/tasks', async (req, res) => {
   }
 })
 
+// Endpoint para obtener todas las tareas
+app.get('/tasks', async (req, res) => {
+  try {
+    const tasks = await Task.find(); // Buscar todas las tareas en la base de datos
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Error fetching tasks' });
+  }
+});
+
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 )
