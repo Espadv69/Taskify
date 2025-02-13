@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const Task = require('./models/Task')
 
 dotenv.config()
 
@@ -18,6 +19,25 @@ mongoose
 
 app.get('/', async (req, res) => {
   res.send('This is the body page')
+})
+
+// Endpoint para agregar una tarea
+app.post('/tasks', async (req, res) => {
+  try {
+    const { name, description } = req.body
+    if (!name || !description) {
+      return res
+        .status(400)
+        .json({ error: 'Both name and desciption are required' })
+    }
+
+    const newTask = new Task({ name, description })
+    await newTask.save()
+    res.status(201).json(newTask)
+  } catch (err) {
+    console.error('Error adding task:', err)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 })
 
 const server = app.listen(PORT, () =>
