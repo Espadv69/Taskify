@@ -3,7 +3,6 @@
 Taskify is a full-stack task management application built using the MERN stack (MongoDB, Express, React, Node.js). It allows users to create, update, delete, and filter tasks efficiently. The application also includes user authentication with JWT and follows a RESTful API structure.
 
 ## Features
-- User authentication with JWT (JSON Web Token)
 - Task management (Create, Read, Update, Delete)
 - RESTful API backend using Node.js and Express
 - MongoDB as the database
@@ -41,7 +40,6 @@ npm install
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
 ```
 4. Start the backend server:
 ```sh
