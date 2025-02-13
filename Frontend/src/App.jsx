@@ -62,6 +62,14 @@ const App = () => {
       />
 
       <button onClick={addTask}>Add Task</button>
+
+      <ul>
+        {tasks.map((task) => (
+          <li key={task._id}>
+            {task.name} - {task.description}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
