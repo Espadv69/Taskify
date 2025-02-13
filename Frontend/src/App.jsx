@@ -37,6 +37,11 @@ const App = () => {
       console.error('Error adding task:', err)
     }
   }
+
+  // Obtener las tareas cuando el componente se monte
+  useEffect(() => {
+    fetchTasks()
+  }, [])
 }
 
 export default App
