@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react'
 const App = () => {
   const [tasks, setTasks] = useState([])
   const [taskName, setTaskName] = useState('')
-  const [taskDescription, settaskDescription] = useState('')
+  const [taskDescription, setTaskDescription] = useState('')
 
   // Función para obtener tareas del backend
   const fetchTasks = async () => {
     try {
       const response = await fetch('http://localhost:5000/tasks')
+      if (!response.ok) throw new Error('Failed to fetch')
       const data = await response.json()
-      setTasks(data)
+      setTasks(data) // Guardar tareas en el estado
     } catch (err) {
       console.error('Error fetching tasks:', err)
     }
@@ -29,10 +30,12 @@ const App = () => {
         body: JSON.stringify(newTask),
       })
 
+      if (!response.ok) throw new Error('Failed to add task')
       const data = await response.json()
-      setTasks([...tasks, data]) // Agregar la nueva tarea
+
+      setTasks((prevTasks) => [...prevTasks, data]) // Agregar la tarea sin perder las anteriores
       setTaskName('')
-      settaskDescription('')
+      setTaskDescription('')
     } catch (err) {
       console.error('Error adding task:', err)
     }
@@ -57,18 +60,22 @@ const App = () => {
       <input
         type="text"
         value={taskDescription}
-        onChange={(e) => settaskDescription(e.target.value)}
+        onChange={(e) => setTaskDescription(e.target.value)}
         placeholder="Task Description"
       />
 
       <button onClick={addTask}>Add Task</button>
 
       <ul>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            {task.name} - {task.description}
-          </li>
-        ))}
+        {tasks.length > 0 ? (
+          tasks.map((task) => (
+            <li key={task._id}>
+              {task.name} - {task.description}
+            </li>
+          ))
+        ) : (
+          <p>No tasks found</p>
+        )}
       </ul>
     </div>
   )
