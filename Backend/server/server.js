@@ -68,6 +68,35 @@ app.delete('/tasks/:id', async (req, res) => {
   }
 })
 
+// Endpoint para actualizar una tarea por su ID
+app.put('/tasks/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { name, description } = req.body
+
+    if (!name || !description) {
+      return res
+        .status(400)
+        .json({ error: 'Both name and description are required' })
+    }
+
+    const task = await Task.findByIdAndUpdate(
+      id,
+      { name, description },
+      { new: true }
+    )
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' })
+    }
+
+    res.status(200).json(task)
+  } catch (err) {
+    console.error('Error updating task:', err)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 )
