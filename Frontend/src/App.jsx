@@ -41,6 +41,22 @@ const App = () => {
     }
   }
 
+  // Función para borrar una tarea
+  const deleteTask = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) throw new Error('Failed to delete task')
+      const data = await response.json()
+
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== data._id))
+    } catch (err) {
+      console.error('Error deleting task:', err)
+    }
+  }
+
   // Obtener las tareas cuando el componente se monte
   useEffect(() => {
     fetchTasks()
@@ -87,6 +103,12 @@ const App = () => {
               <span>
                 {task.name} - {task.description}
               </span>
+              <button
+                onClick={() => deleteTask(task._id)}
+                className="text-red-400 hover:text-red-500"
+              >
+                Delete
+              </button>
             </li>
           ))
         ) : (
