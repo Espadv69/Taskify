@@ -10,9 +10,9 @@ Taskify is a full-stack task management application built using the MERN stack (
 
 ## Technologies Used
 - **Frontend:** React (Vite), Axios
-- **Backend:** Node.js, Express.js, JWT
+- **Backend:** Node.js, Express.js
 - **Database:** MongoDB
-- **Others:** Mongoose (ODM for MongoDB), bcrypt (password hashing)
+- **Others:** Mongoose (ODM for MongoDB)
 
 ## Installation
 ### Prerequisites
@@ -22,7 +22,7 @@ Make sure you have the following installed on your machine:
 
 ### Clone the Repository
 ```sh
-git clone https://github.com/yourusername/taskify.git
+git clone https://github.com/Espadv69/taskify.git
 cd taskify
 ```
 
@@ -60,12 +60,8 @@ npm run dev
 ```
 
 ## API Endpoints
-### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login and get JWT token
-
 ### Tasks
-- `GET /api/tasks` - Get all tasks
-- `POST /api/tasks` - Create a new task
-- `PUT /api/tasks/:id` - Update a task
-- `DELETE /api/tasks/:id` - Delete a task
+- `GET /tasks` - Get all tasks
+- `POST /tasks` - Create a new task
+- `PUT /tasks/:id` - Update a task
+- `DELETE /tasks/:id` - Delete a task
